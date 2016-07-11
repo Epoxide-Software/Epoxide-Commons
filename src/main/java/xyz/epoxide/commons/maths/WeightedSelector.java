@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Generic utility for handling weighted randomization.w
+ * Manages a list of weighted entries.
  */
 public class WeightedSelector<T> {
     

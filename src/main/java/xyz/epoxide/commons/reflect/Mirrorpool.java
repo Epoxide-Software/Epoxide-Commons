@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Allows for classes to be scanned through reflection.
+ */
 public class Mirrorpool {
     
     /**
