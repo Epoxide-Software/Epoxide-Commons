@@ -27,7 +27,7 @@ public class NamedRegistry<V> implements Iterable<V> {
     /**
      * A bidirectional map which contains all the identifiers and registered values.
      */
-    private final BiMap<Identifier, V> values = new BiMap<Identifier, V>();
+    private final BiMap<Identifier, V> values = new BiMap<>();
     
     /**
      * Gets the Identifier for a registered value. This can be null.
@@ -59,7 +59,7 @@ public class NamedRegistry<V> implements Iterable<V> {
      */
     public List<Identifier> getIdentifiers (String domain) {
         
-        final List<Identifier> results = new ArrayList<Identifier>();
+        final List<Identifier> results = new ArrayList<>();
         
         for (final Identifier id : this.values.keySet())
             if (id.getDomain().equals(domain))
@@ -151,7 +151,7 @@ public class NamedRegistry<V> implements Iterable<V> {
      */
     public List<V> getValues () {
         
-        return new ArrayList<V>(this.values.values());
+        return new ArrayList<>(this.values.values());
     }
     
     /**
@@ -162,7 +162,7 @@ public class NamedRegistry<V> implements Iterable<V> {
      */
     public List<V> getValues (String domain) {
         
-        final List<V> values = new ArrayList<V>();
+        final List<V> values = new ArrayList<>();
         
         for (final Entry<Identifier, V> entry : this.values.entrySet())
             if (entry.getKey().getDomain().equals(domain))

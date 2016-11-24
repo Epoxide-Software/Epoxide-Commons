@@ -62,7 +62,7 @@ public class BiMap<K, V> implements Map<K, V> {
      */
     public BiMap<V, K> getInverse () {
         
-        return new BiMap<V, K>(this.inverted, this.map);
+        return new BiMap<>(this.inverted, this.map);
     }
     
     /**
@@ -74,7 +74,7 @@ public class BiMap<K, V> implements Map<K, V> {
      */
     public static <K, V> Map<V, K> invertMap (Map<K, V> map) {
         
-        final HashMap<V, K> reversed = new HashMap<V, K>();
+        final HashMap<V, K> reversed = new HashMap<>();
         
         for (final Map.Entry<K, V> entry : map.entrySet())
             reversed.put(entry.getValue(), entry.getKey());
