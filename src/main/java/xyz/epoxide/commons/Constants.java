@@ -16,5 +16,5 @@ public class Constants {
      * not fully backwards compatible. The buled number is set by the build server and
      * represents how many builds of the project there have been.
      */
-    public static final String VERSION = "0.0.0.0";
+    public static final String VERSION = "0.0.0";
 }

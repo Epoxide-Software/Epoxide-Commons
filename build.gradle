@@ -10,8 +10,12 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 
 group 'xyz.epoxide.commons'
-archivesBaseName ="EpoxideCommons"
+archivesBaseName = "EpoxideCommons"
 version = getVersionFromJava(file("src/main/java/xyz/epoxide/commons/Constants.java"))
+
+dependencies {
+    compile fileTree(dir: 'src', includes: ['/*.xml,/*.properties'])
+}
 
 String getVersionFromJava(File file) {
 
