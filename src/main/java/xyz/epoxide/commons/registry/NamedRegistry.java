@@ -1,11 +1,8 @@
 package xyz.epoxide.commons.registry;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
 
 import xyz.epoxide.commons.collections.BiMap;
 
@@ -16,7 +13,7 @@ import xyz.epoxide.commons.collections.BiMap;
  * second is the name of the value being registered. This is primarily useful when there is a
  * possibility of plug-ins or modifications registering things with your registry.
  */
-public class NamedRegistry<V> implements Iterable<V> {
+public class NamedRegistry<V> implements Iterable<V>, Serializable {
     
     /**
      * An array which holds a cache of all registered values. This cache should only ever be
@@ -27,7 +24,7 @@ public class NamedRegistry<V> implements Iterable<V> {
     /**
      * A bidirectional map which contains all the identifiers and registered values.
      */
-    private final BiMap<Identifier, V> values = new BiMap<>();
+    private final BiMap<Identifier, V> values = new BiMap<Identifier, V>();
     
     /**
      * Gets the Identifier for a registered value. This can be null.
@@ -59,7 +56,7 @@ public class NamedRegistry<V> implements Iterable<V> {
      */
     public List<Identifier> getIdentifiers (String domain) {
         
-        final List<Identifier> results = new ArrayList<>();
+        final List<Identifier> results = new ArrayList<Identifier>();
         
         for (final Identifier id : this.values.keySet())
             if (id.getDomain().equals(domain))
@@ -151,7 +148,7 @@ public class NamedRegistry<V> implements Iterable<V> {
      */
     public List<V> getValues () {
         
-        return new ArrayList<>(this.values.values());
+        return new ArrayList<V>(this.values.values());
     }
     
     /**
@@ -162,7 +159,7 @@ public class NamedRegistry<V> implements Iterable<V> {
      */
     public List<V> getValues (String domain) {
         
-        final List<V> values = new ArrayList<>();
+        final List<V> values = new ArrayList<V>();
         
         for (final Entry<Identifier, V> entry : this.values.entrySet())
             if (entry.getKey().getDomain().equals(domain))
