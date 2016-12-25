@@ -1,4 +1,4 @@
-package xyz.epoxide.commons.collections;
+package org.epoxide.commons.collections;
 
 import java.util.Collection;
 import java.util.Collections;

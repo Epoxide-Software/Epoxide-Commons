@@ -1,4 +1,4 @@
-package xyz.epoxide.commons;
+package org.epoxide.commons;
 
 import java.util.logging.Logger;
 

@@ -1,4 +1,4 @@
-package xyz.epoxide.commons.registry;
+package org.epoxide.commons.registry;
 
 /**
  * This interface can be implemented to make registering more streamlined. The purpose of this

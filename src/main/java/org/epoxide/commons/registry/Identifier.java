@@ -1,4 +1,4 @@
-package xyz.epoxide.commons.registry;
+package org.epoxide.commons.registry;
 
 /**
  * A basic object used to represent an identifier string. An Identifier string has two parts,

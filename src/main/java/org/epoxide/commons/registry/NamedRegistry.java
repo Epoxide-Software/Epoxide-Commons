@@ -1,10 +1,10 @@
-package xyz.epoxide.commons.registry;
+package org.epoxide.commons.registry;
 
 import java.io.Serializable;
 import java.util.*;
 import java.util.Map.Entry;
 
-import xyz.epoxide.commons.collections.BiMap;
+import org.epoxide.commons.collections.BiMap;
 
 /**
  * A bidirectional registry which uses string based identifiers as the keys. Each key is an

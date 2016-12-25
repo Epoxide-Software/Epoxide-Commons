@@ -1,4 +1,4 @@
-package xyz.epoxide.commons.rand;
+package org.epoxide.commons.rand;
 
 import java.util.ArrayList;
 import java.util.List;
