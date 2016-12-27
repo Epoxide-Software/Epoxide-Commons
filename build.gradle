@@ -11,7 +11,7 @@ apply plugin: 'maven'
 
 group 'org.epoxide.commons'
 archivesBaseName = "EpoxideCommons"
-version = getVersionFromJava(file("src/main/java/org/epoxide/commons/Constants.java"))
+version = getVersionFromJava(file("src/main/java/org/epoxide/commons/EpoxideCommons.java"))
 
 dependencies {
     compile fileTree(dir: 'src', includes: ['/*.xml'])
