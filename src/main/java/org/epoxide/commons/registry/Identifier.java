@@ -1,5 +1,7 @@
 package org.epoxide.commons.registry;
 
+import org.epoxide.commons.EpoxideCommons;
+
 /**
  * A basic object used to represent an identifier string. An Identifier string has two parts,
  * the first is the domain which is used to tell the origin. The second part is the name, and
@@ -82,19 +84,18 @@ public class Identifier {
      */
     private static String[] splitNameSafely (String name) {
         
-        // TODO remove tinker default
-        final String[] astring = new String[] { "tinker", name };
+        final String[] names = new String[] { EpoxideCommons.getDefaultName(), name };
         final int seperator = name.indexOf(":");
         
         if (seperator >= 0) {
             
-            astring[1] = name.substring(seperator + 1, name.length());
+            names[1] = name.substring(seperator + 1, name.length());
             
             if (seperator > 1)
-                astring[0] = name.substring(0, seperator);
+                names[0] = name.substring(0, seperator);
         }
         
-        return astring;
+        return names;
     }
     
     @Override

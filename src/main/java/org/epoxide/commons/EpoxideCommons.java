@@ -2,6 +2,8 @@ package org.epoxide.commons;
 
 import java.util.logging.Logger;
 
+import org.epoxide.commons.registry.Identifier;
+
 public class EpoxideCommons {
     
     /**
@@ -18,6 +20,11 @@ public class EpoxideCommons {
      * can use {@link #setLogger(Logger)} to change it to a new one.
      */
     private static Logger log = Logger.getAnonymousLogger();
+    
+    /**
+     * The default value to use for namespaced objects like {@link Identifier}.
+     */
+    private static String defaultName = "epoxide";
     
     /**
      * Sets the logger for Epoxide Commons to use. This will create a new
@@ -49,5 +56,25 @@ public class EpoxideCommons {
     public static Logger getLogger () {
         
         return log;
+    }
+    
+    /**
+     * Gets the default name for things like namespaced objects.
+     * 
+     * @return The default name to use for things like namespaced objects.
+     */
+    public static String getDefaultName () {
+        
+        return defaultName;
+    }
+    
+    /**
+     * Sets the default name for things like namespaced objects.
+     * 
+     * @param name The new name for namespaced objects to use by default.
+     */
+    public static void setDefaultName (String name) {
+        
+        defaultName = name;
     }
 }
