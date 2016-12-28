@@ -23,18 +23,13 @@ public interface IRegisterable<T> {
      * @return The identifier for the object.
      */
     Identifier getIdentifier ();
-    
-    /**
-     * A default implementation of IRegisterable. Handles the basic getting/setting while also
-     * allowing other implementations to also exist.
-     */
-    
+
     /**
      * A default implementation of IRegisterable. It handles the basic getting/setting behavior
      * while allowing other implementations to also exist. If you don't need additional logic,
      * simply have Entity/Item/Block which extend from this class.
      */
-    public static class Registerable<T> implements IRegisterable<T> {
+    class Registerable<T> implements IRegisterable<T> {
         
         /**
          * The identifier for the registerable object.
