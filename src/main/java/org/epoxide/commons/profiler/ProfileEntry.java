@@ -44,6 +44,7 @@ public class ProfileEntry {
 	public void addSubEntry(ProfileEntry entry) {
 		
 		subEntries.add(entry);
+		entry.setParent(this);
 	}
 	
 	public List<ProfileEntry> getSubEntries() {
@@ -65,5 +66,11 @@ public class ProfileEntry {
 	public boolean hasParent() {
 		
 		return this.getParent() != null;
+	}
+	
+	@Override
+	public String toString () {
+		
+		return this.getName() + " - " + this.getTime() + "NS " + (this.isComplete() ? "Completed" : "Incomplete");
 	}
 }

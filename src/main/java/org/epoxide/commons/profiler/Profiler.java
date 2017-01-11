@@ -63,4 +63,9 @@ public class Profiler {
 		
 		return this.current;
 	}
+	
+	public ProfileEntry getMain() {
+		
+		return this.main;
+	}
 }
