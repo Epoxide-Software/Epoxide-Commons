@@ -47,6 +47,11 @@ public class Profiler {
 
 		return null;
 	}
+	
+	public void addNote(String note) {
+		
+		this.current.addNote(note);
+	}
 
 	public Profiler setEnabled(boolean enabled) {
 

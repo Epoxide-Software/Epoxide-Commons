@@ -8,8 +8,9 @@ public class ProfileEntry {
 	private String name;
 	private long time;
 	private boolean completed;
-	private List<ProfileEntry> subEntries = new ArrayList<ProfileEntry>();
 	private ProfileEntry parent;
+	private List<ProfileEntry> subEntries = new ArrayList<ProfileEntry>();
+	private List<String> notes = new ArrayList<String>();
 
 	public ProfileEntry(String name) {
 
@@ -66,6 +67,16 @@ public class ProfileEntry {
 	public boolean hasParent() {
 		
 		return this.getParent() != null;
+	}
+	
+	public void addNote(String note) {
+		
+		this.notes.add(note);
+	}
+	
+	public List<String> getNotes() {
+		
+		return this.notes;
 	}
 	
 	@Override
