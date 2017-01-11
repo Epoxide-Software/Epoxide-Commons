@@ -2,12 +2,15 @@ package org.epoxide.commons.profiler;
 
 public class Profiler {
 
+	private final ProfileEntry main;
+	
 	private boolean enabled;
 	private ProfileEntry current;
 
 	public Profiler(String profileName) {
 
-		this.current = new ProfileEntry(profileName);
+		this.main = new ProfileEntry("main");
+		this.current = this.main;
 	}
 
 	public void start(String processName) {
@@ -38,6 +41,8 @@ public class Profiler {
 			
 			if (this.current.hasParent())
 				this.current = this.current.getParent();
+			
+			return ending;
 		}
 
 		return null;

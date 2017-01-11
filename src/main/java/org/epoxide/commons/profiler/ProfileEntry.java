@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ProfileEntry {
 
-	private final String name;
+	private String name;
 	private long time;
 	private boolean completed;
 	private List<ProfileEntry> subEntries = new ArrayList<ProfileEntry>();
@@ -18,7 +18,7 @@ public class ProfileEntry {
 
 	public String getName() {
 
-		return (this.getParent() != null) ? this.getParent().getName() + "#" + this.name: this.name;
+		return this.name;
 	}
 	
 	public long getTime() {
@@ -59,6 +59,7 @@ public class ProfileEntry {
 	public void setParent(ProfileEntry parent) {
 		
 		this.parent = parent;
+		this.name = parent.getName() + "#" + this.getName();
 	}
 	
 	public boolean hasParent() {
