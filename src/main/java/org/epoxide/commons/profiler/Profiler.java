@@ -1,34 +1,26 @@
 package org.epoxide.commons.profiler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 public class Profiler {
-
-	private final Logger log;
-	private final List<ProfileEntry> entries = new ArrayList<>();
 
 	private boolean enabled;
 	private ProfileEntry current;
 
-	public Profiler(String name) {
+	public Profiler(String profileName) {
 
-		this(Logger.getLogger(name));
-	}
-
-	public Profiler(Logger log) {
-
-		this.log = log;
+		this.current = new ProfileEntry(profileName);
 	}
 
 	public void start(String processName) {
 
 		if (this.isEnabled()) {
 
-			if (current != null) {
-
-			}
+			ProfileEntry entry = new ProfileEntry(processName);
+			
+			if (this.current != null)
+				this.current.addSubEntry(entry);
+			
+			this.current = entry;
+			this.current.setTime(System.nanoTime());
 		}
 	}
 
@@ -36,6 +28,16 @@ public class Profiler {
 
 		if (this.isEnabled()) {
 
+			if (current == null)
+				return null;
+			
+			this.current.setTime(System.nanoTime() - this.current.getTime());
+			this.current.setComplete(true);
+
+			ProfileEntry ending = this.current;
+			
+			if (this.current.hasParent())
+				this.current = this.current.getParent();
 		}
 
 		return null;
@@ -50,5 +52,10 @@ public class Profiler {
 	public boolean isEnabled() {
 
 		return this.enabled;
+	}
+	
+	public ProfileEntry getCurrentEntry() {
+		
+		return this.current;
 	}
 }

@@ -60,4 +60,9 @@ public class ProfileEntry {
 		
 		this.parent = parent;
 	}
+	
+	public boolean hasParent() {
+		
+		return this.getParent() != null;
+	}
 }
