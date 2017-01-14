@@ -1,80 +1,81 @@
 package org.epoxide.commons.profiler;
 
 /**
- * A simple profiler for timing your code. The provided system will allow you to
- * time a process, along with sub processes.
+ * A simple profiler for timing your code. The provided system will allow you to time a
+ * process, along with sub processes.
  */
 public class Profiler {
 
-	private final ProfileEntry main;
+    private final ProfileEntry main;
 
-	private boolean enabled;
-	private ProfileEntry current;
+    private boolean enabled;
+    private ProfileEntry current;
 
-	public Profiler(String profileName) {
+    public Profiler (String profileName) {
 
-		this.main = new ProfileEntry("main");
-		this.current = this.main;
-		this.main.setTime(System.nanoTime());
-	}
+        this.main = new ProfileEntry("main");
+        this.current = this.main;
+        this.main.setTime(System.nanoTime());
+    }
 
-	public void start(String processName) {
+    public void start (String processName) {
 
-		if (this.isEnabled()) {
+        if (this.isEnabled()) {
 
-			ProfileEntry entry = new ProfileEntry(processName);
+            final ProfileEntry entry = new ProfileEntry(processName);
 
-			if (this.current != null)
-				this.current.addSubEntry(entry);
+            if (this.current != null)
+                this.current.addSubEntry(entry);
 
-			this.current = entry;
-			this.current.setTime(System.nanoTime());
-		}
-	}
+            this.current = entry;
+            this.current.setTime(System.nanoTime());
+        }
+    }
 
-	public ProfileEntry stop() {
-		if (this.isEnabled()) {
+    public ProfileEntry stop () {
 
-			if (current == null)
-				return null;
+        if (this.isEnabled()) {
 
-			this.current.setTime(System.nanoTime() - this.current.getTime());
-			this.current.setComplete(true);
+            if (this.current == null)
+                return null;
 
-			ProfileEntry ending = this.current;
+            this.current.setTime(System.nanoTime() - this.current.getTime());
+            this.current.setComplete(true);
 
-			if (this.current.hasParent())
-				this.current = this.current.getParent();
+            final ProfileEntry ending = this.current;
 
-			return ending;
-		}
+            if (this.current.hasParent())
+                this.current = this.current.getParent();
 
-		return null;
-	}
+            return ending;
+        }
 
-	public void addNote(String note) {
+        return null;
+    }
 
-		this.current.addNote(note);
-	}
+    public void addNote (String note) {
 
-	public Profiler setEnabled(boolean enabled) {
+        this.current.addNote(note);
+    }
 
-		this.enabled = enabled;
-		return this;
-	}
+    public Profiler setEnabled (boolean enabled) {
 
-	public boolean isEnabled() {
+        this.enabled = enabled;
+        return this;
+    }
 
-		return this.enabled;
-	}
+    public boolean isEnabled () {
 
-	public ProfileEntry getCurrentEntry() {
+        return this.enabled;
+    }
 
-		return this.current;
-	}
+    public ProfileEntry getCurrentEntry () {
 
-	public ProfileEntry getMain() {
+        return this.current;
+    }
 
-		return this.main;
-	}
+    public ProfileEntry getMain () {
+
+        return this.main;
+    }
 }
