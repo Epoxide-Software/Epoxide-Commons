@@ -13,9 +13,9 @@ public class Profiler {
 
     public Profiler (String profileName) {
 
-        this.main = new ProfileEntry("main");
-        this.current = this.main;
+        this.main = new ProfileEntry("main", true);
         this.main.setTime(System.nanoTime());
+        this.current = this.main;
     }
 
     public void start (String processName) {

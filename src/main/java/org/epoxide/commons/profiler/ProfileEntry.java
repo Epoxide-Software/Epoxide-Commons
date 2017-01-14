@@ -9,12 +9,19 @@ public class ProfileEntry {
     private long time;
     private boolean completed;
     private ProfileEntry parent;
+    private final boolean isMain;
     private final List<ProfileEntry> subEntries = new ArrayList<>();
     private final List<String> notes = new ArrayList<>();
 
     public ProfileEntry (String name) {
+        
+        this (name, false);
+    }
+    
+    public ProfileEntry (String name, boolean isMain) {
 
         this.name = name;
+        this.isMain = isMain;
     }
 
     public String getName () {
@@ -79,6 +86,11 @@ public class ProfileEntry {
         return this.notes;
     }
 
+    public boolean isMain() {
+        
+        return this.isMain;
+    }
+    
     @Override
     public String toString () {
 
