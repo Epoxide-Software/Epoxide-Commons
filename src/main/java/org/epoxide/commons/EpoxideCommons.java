@@ -5,16 +5,7 @@ import java.util.logging.Logger;
 import org.epoxide.commons.registry.Identifier;
 
 public class EpoxideCommons {
-    
-    /**
-     * The current version of the library being used. This follows a major.release.build
-     * structure. The major number represents the current iteration of the project. The release
-     * number is used to track when a build has features not included in previous builds and is
-     * not fully backwards compatible. The buled number is set by the build server and
-     * represents how many builds of the project there have been.
-     */
-    public static final String VERSION = "0.0.0";
-    
+        
     /**
      * The logger used by Epoxide Commons. By default this is an anonymous logger, however you
      * can use {@link #setLogger(Logger)} to change it to a new one.

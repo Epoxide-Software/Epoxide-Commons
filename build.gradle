@@ -1,49 +1,51 @@
+import groovy.json.JsonSlurper
+import org.apache.tools.ant.filters.ReplaceTokens
+
 buildscript {
     repositories {
         jcenter()
+    }
+    dependencies {
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'org.sonarqube'
 
-group 'org.epoxide.commons'
-archivesBaseName = "EpoxideCommons"
-version = getVersionFromJava(file("src/main/java/org/epoxide/commons/EpoxideCommons.java"))
+version = "${project_version}." + getBuildNumber()
+group = "${project_group}"
+archivesBaseName = "${project_name}"
 
-dependencies {
-    compile fileTree(dir: 'src', includes: ['/*.xml'])
+
+class Secrets {
+    def data = null
+
+    def getProperty(String key) {
+        return data ? data[key] : ''
+    }
 }
 
-String getVersionFromJava(File file) {
 
-    String major = "0";
-    String minor = "0";
+def secretFile
+if (System.getenv().SECRET_FILE) {
+    secretFile = file System.getenv().SECRET_FILE
+} else {
+    secretFile = file 'secret.json'
+}
 
-    String build = System.getenv("BUILD_NUMBER") ?: "0";
-    def outfile = "";
-    def ln = System.getProperty("line.separator")
-
-    String prefix = "public static final String VERSION = \"";
-    file.eachLine { String s ->
-
-        String v = s.trim();
-        if (v.startsWith(prefix)) {
-            v = v.substring(prefix.length(), v.length() - 2);
-            String[] pts = v.split("\\.");
-
-            major = pts[0];
-            minor = pts[1];
-            s = s.replaceAll(".0\";", ".${build}\";");
-        }
-        outfile += (s + ln);
+project.ext.secret = new Secrets()
+if (secretFile.exists()) {
+    secretFile.withReader {
+        project.ext.secret.data = new JsonSlurper().parse it
     }
+}
 
-    file.write(outfile);
-
-    return "$major.$minor.$build";
+String getBuildNumber() {
+    return System.getenv('BUILD_NUMBER') ?: System.getenv('TRAVIS_BUILD_NUMBER') ?: '0';
 }
 
 if (JavaVersion.current().isJava8Compatible()) {
@@ -52,6 +54,10 @@ if (JavaVersion.current().isJava8Compatible()) {
             options.addStringOption('Xdoclint:none', '-quiet')
         }
     }
+}
+
+task buildJar(type: Jar) {
+    from sourceSets.main.output
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -64,20 +70,39 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
 }
 
-task buildJar(type: Jar) {
-    from sourceSets.main.output
-}
-
 artifacts {
-    archives buildJar
-    archives sourcesJar
-    archives javadocJar
+    archives buildJar, sourcesJar, javadocJar
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file:///var/www/html/maven")
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+            artifact buildJar
+            artifact sourcesJar
+            artifact javadocJar
         }
+    }
+    repositories {
+        maven {
+            credentials {
+                username secret.username
+                password secret.password
+            }
+            url secret.url
+        }
+    }
+}
+
+sonarqube {
+    properties {
+        property 'sonar.host.url', secret.sonarHost
+        property 'sonar.organization', secret.sonarOrganization
+        property 'sonar.login', secret.sonarToken
+        property 'sonar.projectName', project.archivesBaseName
+        property 'sonar.projectKey', "$project.group:$project.archivesBaseName"
     }
 }
