@@ -1,5 +1,4 @@
 import groovy.json.JsonSlurper
-import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
     repositories {
@@ -82,8 +81,12 @@ publishing {
             version project.version
             from components.java
             artifact buildJar
-            artifact sourcesJar
-            artifact javadocJar
+            artifact sourcesJar {
+                classifier 'sources'
+            }
+            artifact javadocJar {
+                classifier 'javadoc'
+            }
         }
     }
     repositories {
