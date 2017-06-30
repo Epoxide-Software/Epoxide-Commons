@@ -55,10 +55,6 @@ if (JavaVersion.current().isJava8Compatible()) {
     }
 }
 
-task buildJar(type: Jar) {
-    from sourceSets.main.output
-}
-
 task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
     classifier = 'sources'
@@ -70,7 +66,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 artifacts {
-    archives buildJar, sourcesJar, javadocJar
+    archives sourcesJar, javadocJar
 }
 
 publishing {
@@ -80,7 +76,7 @@ publishing {
             artifactId project.archivesBaseName
             version project.version
             from components.java
-            artifact buildJar
+
             artifact sourcesJar {
                 classifier 'sources'
             }
