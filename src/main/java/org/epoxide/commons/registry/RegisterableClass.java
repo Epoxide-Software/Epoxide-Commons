@@ -36,9 +36,11 @@ public class RegisterableClass<T> extends Registerable<T> {
     }
 
     /**
-     * Attempts to construct the contained class using arbitrary arguments. Arguments only support primitives.
+     * Attempts to construct the contained class using arbitrary arguments. Arguments only
+     * support primitives.
+     *
      * @param args The arguments used to construct the class.
-     * @return The constructed instance. 
+     * @return The constructed instance.
      */
     public T construct (Object... args) {
 

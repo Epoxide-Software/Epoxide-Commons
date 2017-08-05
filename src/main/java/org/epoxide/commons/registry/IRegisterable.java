@@ -8,18 +8,18 @@ package org.epoxide.commons.registry;
  * the Registerable class.
  */
 public interface IRegisterable<T> {
-    
+
     /**
      * Sets the identifier for the registerable object.
-     * 
+     *
      * @param identifier The identifier to use.
      * @return The object having it's identifier set, for convenience.
      */
     T setIdentifier (Identifier identifier);
-    
+
     /**
      * Gets the identifier for the registerable object.
-     * 
+     *
      * @return The identifier for the object.
      */
     Identifier getIdentifier ();
@@ -30,22 +30,22 @@ public interface IRegisterable<T> {
      * simply have Entity/Item/Block which extend from this class.
      */
     class Registerable<T> implements IRegisterable<T> {
-        
+
         /**
          * The identifier for the registerable object.
          */
         private Identifier identifier;
-        
+
         @Override
         public T setIdentifier (Identifier identifier) {
-            
+
             this.identifier = identifier;
             return (T) this;
         }
-        
+
         @Override
         public Identifier getIdentifier () {
-            
+
             return this.identifier;
         }
     }
